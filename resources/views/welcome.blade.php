@@ -130,4 +130,51 @@
         @endforelse
     </div>
 </section>
+
+<!-- Categories Showcase Section -->
+<section class="max-w-7xl mx-auto px-6 py-12 border-t border-slate-100">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold mb-2">Jelajahi Kategori Event</h2>
+        <p class="text-slate-500 font-medium">Cari kegiatan yang sesuai dengan minat dan kebutuhan pengembangan dirimu.</p>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        @foreach($categories as $cat)
+            <a href="{{ route('home', ['category' => $cat->slug]) }}" class="group p-6 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center">
+                <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h4 class="font-bold text-slate-800 text-lg group-hover:text-indigo-600 transition-colors">{{ $cat->name }}</h4>
+                <p class="text-slate-400 text-xs mt-1 font-medium">Klik untuk filter event</p>
+            </a>
+        @endforeach
+    </div>
+</section>
+
+<!-- Partners Showcase Section -->
+<section class="max-w-7xl mx-auto px-6 py-16 border-t border-slate-100">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold mb-2">Partner Pendukung</h2>
+        <p class="text-slate-500 font-medium">Didukung oleh institusi dan partner fiktif terbaik yang menggerakkan platform AmikomEventHub.</p>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+        @forelse($partners as $partner)
+            <div class="group flex flex-col items-center justify-center p-6 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 w-full text-center">
+                <div class="w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 border border-slate-100 flex items-center justify-center p-2 mb-3 group-hover:scale-105 transition-transform duration-300">
+                    <img src="{{ str_starts_with($partner->logo_url, 'http') ? $partner->logo_url : asset('storage/' . $partner->logo_url) }}" 
+                         alt="{{ $partner->name }}" 
+                         class="max-w-full max-h-full object-contain">
+                </div>
+                <span class="font-bold text-sm text-slate-700 group-hover:text-indigo-600 transition-colors">{{ $partner->name }}</span>
+            </div>
+        @empty
+            <div class="col-span-full text-center text-slate-400 py-6">
+                Belum ada partner pendukung terdaftar.
+            </div>
+        @endforelse
+    </div>
+</section>
 @endsection
